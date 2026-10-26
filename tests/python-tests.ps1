@@ -81,7 +81,7 @@ Describe "Tests" {
         }
 
         # TODO: Python 3.16+ is extracted from a package, so it is not registered for the legacy py.exe launcher
-        $SkipPyLauncher = [semver]$Version -ge [semver]"3.16.0-alpha.1"
+        $SkipPyLauncher = ([semver]$Version -ge [semver]"3.16.0-alpha.1") -or ($HardwareArchitecture -eq "x86")
         It "py.exe finds Python" -Skip:$SkipPyLauncher {
             $suffix = if ($Architecture -match "-freethreaded") { "t" } else { "" }
             $major, $minor = "$Version".Split(".")[0..1]
